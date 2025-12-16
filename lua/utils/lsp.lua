@@ -14,8 +14,8 @@ M.on_attach = function(event)
     }
 
     -- native neovim keymaps
-    keymap("n", "<leader>gd", vim.lsp.buf.definition, opts) -- goto definition
-    keymap("n", "<leader>gS", function()                    -- goto definition in split
+    keymap("n", "gd", vim.lsp.buf.definition, opts) -- goto definition
+    keymap("n", "<leader>gS", function()            -- goto definition in split
         vim.cmd("vsplit")
         vim.lsp.buf.definition()
     end, opts)
@@ -25,10 +25,10 @@ M.on_attach = function(event)
     keymap("n", "<leader>pd", function()                      -- previous diagnostic
         vim.diagnostic.jump({ count = -1 })
     end, opts)
-    keymap("n", "<leader>nd", function()                      -- next diagnostic
+    keymap("n", "<leader>nd", function() -- next diagnostic
         vim.diagnostic.jump({ count = 1 })
     end, opts)
-    keymap("n", "K", vim.lsp.buf.hover, opts)                 -- hover documentation
+    keymap("n", "K", vim.lsp.buf.hover, opts) -- hover documentation
 
     -- fzf-lua keymaps
     keymap("n", "<leader>fd", "<cmd>FzfLua lsp_finder<CR>", opts)            -- LSP Finder (definition + references)

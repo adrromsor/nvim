@@ -8,5 +8,9 @@ return {
     { "echasnovski/mini.cursorword",  version = "*", opts = {} },
     { "echasnovski/mini.indentscope", version = "*", opts = {} },
     { "echasnovski/mini.notify",      version = "*", opts = {} },
-    { "echasnovski/mini.trailspace",  version = "*", opts = {} },
+    {
+        "echasnovski/mini.trailspace",
+        event = "BufReadPost",
+        opts = {},
+    },
 }

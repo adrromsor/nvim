@@ -4,6 +4,8 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
+            zen = { enabled = true },
+            
             dashboard = {
                 enabled = true,
                 sections = {
@@ -19,6 +21,10 @@ return {
                     { section = "startup" },
                 },
             },
+        },
+        keys = {
+            { "<leader>z", function() Snacks.zen() end,      desc = "Toggle Zen Mode" },
+            { "<leader>Z", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
         },
     }
 }

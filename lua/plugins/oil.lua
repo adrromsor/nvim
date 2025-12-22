@@ -6,7 +6,7 @@ return {
 
         local function create_python_module()
             local current_dir = oil.get_current_dir()
-            if not current_dir then return end
+
 
             vim.ui.input({ prompt = "Create python module: " }, function(name)
                 if not name or name == "" then return end
@@ -60,6 +60,9 @@ return {
                     desc = "Create Python Module",
                     mode = "n",
                 },
+                ["<C-h>"] = false,
+                ["<C-l>"] = false,
+                ["R"] = "actions.refresh", -- Refresh Oil
             },
         })
         vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" })

@@ -7,7 +7,7 @@ require("servers.ruff")(capabilities)
 
 
 vim.lsp.enable({
-  'lua_ls',
-  'basedpyright',
-  'ruff',
+    'lua_ls',
+    'basedpyright',
+    'ruff',
 })

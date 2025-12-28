@@ -43,7 +43,7 @@ return {
                 "icon",
             },
             keymaps = {
-                
+
                 ["g?"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
                 ["<C-s>"] = "actions.select_split",  -- Open in horizontal split

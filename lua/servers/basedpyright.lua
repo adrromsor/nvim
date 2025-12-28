@@ -19,4 +19,3 @@ return function(capabilities)
         },
     })
 end
-

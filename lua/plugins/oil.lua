@@ -6,7 +6,7 @@ return {
 
         local function create_python_module()
             local current_dir = oil.get_current_dir()
-
+            if not current_dir then return end
 
             vim.ui.input({ prompt = "Create python module: " }, function(name)
                 if not name or name == "" then return end
@@ -43,6 +43,7 @@ return {
                 "icon",
             },
             keymaps = {
+                
                 ["g?"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
                 ["<C-s>"] = "actions.select_split",  -- Open in horizontal split

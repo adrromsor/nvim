@@ -5,7 +5,7 @@ return {
         lazy = false,
         opts = {
             zen = { enabled = true },
-            
+
             dashboard = {
                 enabled = true,
                 sections = {

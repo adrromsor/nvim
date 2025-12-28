@@ -24,10 +24,7 @@ require("lazy").setup({
 		{ import = "plugins" },
 	},
 	install = {
-		colorscheme = {
-			-- "melange"
-			"nightfox,",
-		},
+		colorscheme = { "tokyonight", "habamax" },
 	},
 	checker = { enabled = true },
 })

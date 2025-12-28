@@ -29,9 +29,5 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
--- Quick config editing
-vim.keymap.set("n", "<leader>rc", "<Cmd>e ~/.config/nvim/init.lua<CR>", { desc = "Edit config" })
-
 -- File Explorer
 vim.keymap.set("n", "<leader>e", ":Neotree toggle position=left<CR>", { desc = "Toggle File Explorer" })
-

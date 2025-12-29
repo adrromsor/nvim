@@ -2,44 +2,35 @@ local M = {}
 
 M.on_attach = function(event)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if not client then
-        return
-    end
-    local bufnr = event.buf
-    local keymap = vim.keymap.set
-    local opts = {
-        noremap = true, -- prevent recursive mapping
-        silent = true,  -- don't print the command to the cli
-        buffer = bufnr, -- restrict the keymap to the local buffer number
-    }
+    if not client then return end
 
-    -- native neovim keymaps
-    keymap("n", "gd", vim.lsp.buf.definition, opts) -- goto definition
-    keymap("n", "<leader>gS", function()            -- goto definition in split
+    local bufnr = event.buf
+
+    local function map(lhs, rhs, desc)
+        vim.keymap.set("n", lhs, rhs, {
+            buffer = bufnr,
+            noremap = true,
+            silent = true,
+            desc = "LSP: " .. desc,
+        })
+    end
+
+    map("gd", vim.lsp.buf.definition, "Goto Definition")
+    map("K", vim.lsp.buf.hover, "Hover Documentation")
+    map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+    map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+    
+    map("<leader>gS", function()
         vim.cmd("vsplit")
         vim.lsp.buf.definition()
-    end, opts)
-    keymap("n", "<leader>ca", vim.lsp.buf.code_action, opts)  -- Code actions
-    keymap("n", "<leader>rn", vim.lsp.buf.rename, opts)       -- Rename symbol
-    keymap("n", "<leader>d", vim.diagnostic.open_float, opts) -- Line diagnostics (float)
-    keymap("n", "<leader>pd", function()                      -- previous diagnostic
-        vim.diagnostic.jump({ count = -1 })
-    end, opts)
-    keymap("n", "<leader>nd", function() -- next diagnostic
-        vim.diagnostic.jump({ count = 1 })
-    end, opts)
-    keymap("n", "K", vim.lsp.buf.hover, opts) -- hover documentation
+    end, "Goto Definition (Split)")
 
-    -- fzf-lua keymaps
-    keymap("n", "<leader>fd", "<cmd>FzfLua lsp_finder<CR>", opts)            -- LSP Finder (definition + references)
-    keymap("n", "<leader>fr", "<cmd>FzfLua lsp_references<CR>", opts)        -- Show all references to the symbol under the cursor
-    keymap("n", "<leader>ft", "<cmd>FzfLua lsp_typedefs<CR>", opts)          -- Jump to the type definition of the symbol under the cursor
-    keymap("n", "<leader>fs", "<cmd>FzfLua lsp_document_symbols<CR>", opts)  -- List all symbols (functions, classes, etc.) in the current file
-    keymap("n", "<leader>fs", "<cmd>FzfLua lsp_workspace_symbols<CR>", opts) -- Search for any symbol across the entire project/workspace
-    keymap("n", "<leader>fi", "<cmd>FzfLua lsp_implementations<CR>", opts)   -- Go to implementation
+    map("<leader>cd", vim.diagnostic.open_float, "Line Diagnostic")
 
-    -- Order Imports Manually
-    keymap("n", "<leader>oi", function()
+    map("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Prev Diagnostic")
+    map("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
+
+    map("<leader>oi", function()
         vim.lsp.buf.code_action({
             context = {
                 only = { "source.organizeImports" },
@@ -47,7 +38,7 @@ M.on_attach = function(event)
             },
             apply = true,
         })
-    end, opts)
+    end, "Organize Imports")
 end
 
 return M
